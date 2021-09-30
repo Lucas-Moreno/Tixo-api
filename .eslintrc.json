@@ -1,15 +1,18 @@
 {
-    "env": {
-      "node": true
-    },
-    "extends": "eslint:recommended",
-    "plugins": ["security", "prettier"],
-    "parserOptions": {
-      "ecmaVersion": 2018
-    },
-    "rules": {
-      "semi": ["warn", "never"],
-      "quotes": ["warn", "double"]
-    }
+  "env": {
+    "node": true,
+    "jest": true
+  },
+  "extends": [
+    "plugin:security/recommended",
+    "plugin:prettier/recommended"
+  ],
+  "plugins": ["security", "prettier"],
+  "parserOptions": {
+    "ecmaVersion": 2018
+  },
+  "rules": {
+    "semi": ["warn", "never"],
+    "quotes": ["warn", "double"]
   }
-  
+}
