@@ -2,6 +2,7 @@ const express = require("express")
 const cors = require("cors")
 const morgan = require("morgan")
 const helmet = require("helmet")
+const figlet = require("figlet")
 const bodyParser = require("body-parser")
 const process = require("process")
 
@@ -34,9 +35,22 @@ require("./src/routes/routes.js")(app)
 
 // set port, listen for requestsxs
 const PORT = process.env.PORT || 3000
-app.listen(PORT, (err) => {
-  if (err) throw err
-  console.log(`Server is running on port ${PORT}.`)
+app.listen(PORT, () => {
+  figlet(process.env.NAME_APP, {
+    font: "Big Money-ne",
+    horizontalLayout: "full",
+    verticalLayout: "default",
+    width: 180,
+    whitespaceBreak: false
+  }, function (err, data) {
+    if (err) {
+      console.log("Something went wrong...")
+      console.dir(err)
+      return
+    }
+    console.log(data)
+    console.log(`Server is running on port ${PORT}.`)
+  })
 })
 
 module.exports = app
