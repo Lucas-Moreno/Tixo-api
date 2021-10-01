@@ -1,6 +1,7 @@
 {
   "env": {
-    "node": true
+    "node": true,
+    "jest": true
   },
   "extends": ["plugin:security/recommended", "plugin:jest/recommended",  "plugin:prettier/recommended"],
   "plugins": ["jest", "security", "prettier"],
@@ -9,6 +10,7 @@
   },
   "rules": {
     "semi": ["warn", "never"],
-    "quotes": ["warn", "double"]
+    "quotes": ["warn", "double"],
+    "jest/expect-expect": "off"
   }
 }
