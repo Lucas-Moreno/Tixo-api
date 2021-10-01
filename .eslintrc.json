@@ -2,8 +2,8 @@
   "env": {
     "node": true
   },
-  "extends": ["plugin:security/recommended", "plugin:prettier/recommended"],
-  "plugins": ["security", "prettier"],
+  "extends": ["plugin:security/recommended", "plugin:jest/recommended",  "plugin:prettier/recommended"],
+  "plugins": ["jest", "security", "prettier"],
   "parserOptions": {
     "ecmaVersion": 2018
   },
