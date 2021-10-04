@@ -4,13 +4,14 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "test": "jest",
     "start": "nodemon server.js",
     "dev": "nodemon server.js",
     "eslint": "eslint .",
     "eslint:fix": "eslint . --fix",
     "prettier": "prettier --check \"**/*.js\"",
-    "prettier:fix": "prettier --write \"**/*.js\""
+    "prettier:fix": "prettier --write \"**/*.js\"",
+    "docker": "docker-compose up",
+    "test": "jest"
   },
   "repository": {
     "type": "git",
