@@ -1,6 +1,7 @@
 const mongoose = require("mongoose")
 const User = mongoose.model("User")
 var bcrypt = require("bcrypt")
+var jwtUtils = require("../../utils/jwt.utils.js");
 
 const getAllUser = async (req, res) => {
   User.find((err, doc) => {
@@ -40,7 +41,12 @@ const register = async (req, res) => {
         if (!err) {
           return res.status(201).json({ message: "create" })
         }
-        return res.status(400).json({ message: "error create new record" })
+        console.log(err)
+        if(err.message.indexOf("11000") != -1){
+          return res.status(400).json({ message: "error mail already exists" })
+        }else{
+          return res.status(400).json({ message: "error create new account" })
+        }
       })
     } catch (e) {
       return res.status(500).json(e)
@@ -61,10 +67,15 @@ const login = async (req, res) => {
       if (userFound) {
         bcrypt.compare(password, userFound.password, function (errBycrypt, resBycrypt) {
           if (resBycrypt) {
-            return res.status(200).json({
-              mail: mail,
-              password: password,
-            })
+            try{
+              let token = jwtUtils.generateTokenForUser(userFound)
+              return res.status(200).json({
+                token: token
+              })
+            }catch{
+              console.log(e)
+              return res.status(200).json("Oups ! error T_T")
+            }
           }
         })
       } else {
