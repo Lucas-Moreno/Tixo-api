@@ -31,10 +31,11 @@ app.use(express.urlencoded({ extended: true }))
 // parse requests of content-type - application/json
 app.use(bodyParser.json())
 
+require('./src/models/db')
 require("./src/routes/routes.js")(app)
 
 // set port, listen for requestsxs
-const PORT = process.env.PORT || 3000
+const PORT = process.env.PORT || 80
 
 app.listen(PORT, () => {
   figlet(
