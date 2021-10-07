@@ -1,4 +1,5 @@
 module.exports = (app) => {
+  const authController = require("../controllers/auth/auth.controller.js")
   const userController = require("../controllers/user/user.controller.js")
   /**
    * TEST API
@@ -7,10 +8,17 @@ module.exports = (app) => {
     res.send("Welcome to the jungle of the Tixo API.")
   })
 
+  /**
+   * AUTH
+   */
+  app.post("/auth/register", authController.register)
+  app.post("/auth/login", authController.login)
+
+  /**
+   * USER
+   */
   app.get("/user", userController.getAllUser)
   app.get("/user/:id", userController.getUser)
-  app.post("/register", userController.register)
-  app.post("/login", userController.login)
 
   /**
    * 404 NOT FOUND
