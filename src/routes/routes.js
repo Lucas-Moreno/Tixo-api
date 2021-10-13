@@ -1,4 +1,6 @@
 module.exports = (app) => {
+  const { verifyToken } = require("../controllers/token/verifyToken.controller.js")
+
   const authController = require("../controllers/auth/auth.controller.js")
   const userController = require("../controllers/user/user.controller.js")
   /**
@@ -7,6 +9,12 @@ module.exports = (app) => {
   app.get("/", (req, res) => {
     res.send("Welcome to the jungle of the Tixo API.")
   })
+
+  /**
+   * API VERIFY REQUETE
+   */
+  /* checks if the API is well secured by a bearer Token */
+  app.use("/api/", verifyToken)
 
   /**
    * AUTH
@@ -19,6 +27,8 @@ module.exports = (app) => {
    */
   app.get("/user", userController.getAllUser)
   app.get("/user/:id", userController.getUser)
+
+  app.get("/api/test", userController.getAllUser)
 
   /**
    * 404 NOT FOUND

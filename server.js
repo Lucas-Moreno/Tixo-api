@@ -31,7 +31,9 @@ app.use(express.urlencoded({ extended: true }))
 // parse requests of content-type - application/json
 app.use(bodyParser.json())
 
-require('./src/models/db')
+app.set('json spaces', 2)
+
+require("./src/models/db")
 require("./src/routes/routes.js")(app)
 
 // set port, listen for requestsxs

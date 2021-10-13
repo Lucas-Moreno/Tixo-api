@@ -1,21 +1,21 @@
 const mongoose = require("mongoose")
-const User = mongoose.model("User")
+const User = mongoose.model("user")
 
 const getAllUser = async (req, res) => {
-  User.find((err, doc) => {
-    if (!err) return res.status(200).json(doc)
-    else {
-      return res.status(500).json(err)
-    }
-  })
+  try {
+    const users = await User.find()
+    return res.status(200).json(users)
+  } catch (err) {
+    return res.status(500).json(err)
+  }
 }
 const getUser = async (req, res) => {
-  User.findOne({ _id: req.params.id }, (err, doc) => {
-    if (!err) return res.status(200).json(doc)
-    else {
-      return res.status(500).json(err)
-    }
-  })
+  try {
+    const user = await User.findOne({ _id: req.params.id })
+    return res.status(200).json(user)
+  } catch (e) {
+    return res.status(500).json(e)
+  }
 }
 
 module.exports = { getAllUser, getUser }
