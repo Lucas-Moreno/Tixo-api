@@ -16,6 +16,7 @@ const verifyToken = async (req, res, next) => {
   let userData = -1
   token = jwtUtils.parseAuthorization(token)
 
+  // eslint-disable-next-line security/detect-possible-timing-attacks
   if (token != null) {
     try {
       let jwtToken = jwt.verify(token, process.env.JWT_SIGN_SECRET)

@@ -5,8 +5,11 @@
   },
   "extends": ["plugin:security/recommended", "plugin:jest/recommended",  "plugin:prettier/recommended"],
   "plugins": ["jest", "security", "prettier"],
+  "parser": "babel-eslint",
   "parserOptions": {
-    "ecmaVersion": 2018
+    "ecmaVersion": 2018,
+    "sourceType": "module",
+    "allowImportExportEverywhere": true
   },
   "rules": {
     "semi": ["warn", "never"],

@@ -3,7 +3,7 @@ const User = mongoose.model("user")
 
 const getAllUser = async (req, res) => {
   try {
-    const users = await User.find()
+    const users = await User.find().select("_id pseudo mail")
     return res.status(200).json(users)
   } catch (err) {
     return res.status(500).json(err)
@@ -11,7 +11,7 @@ const getAllUser = async (req, res) => {
 }
 const getUser = async (req, res) => {
   try {
-    const user = await User.findOne({ _id: req.params.id })
+    const user = await User.findOne({ _id: req.params.id }).select("_id pseudo mail")
     return res.status(200).json(user)
   } catch (e) {
     return res.status(500).json(e)

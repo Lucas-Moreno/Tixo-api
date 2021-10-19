@@ -22,13 +22,16 @@ const parseAuthorization = (authorization) => {
 const getUserId = (authorization) => {
   userData = -1
   var token = module.exports.parseAuthorization(authorization)
+  // eslint-disable-next-line security/detect-possible-timing-attacks
   if (token != null) {
     try {
       var jwtToken = jwt.verify(token, JWT_SIGN_SECRET)
       if (jwtToken != null) {
         userData = jwtToken.userData
       }
-    } catch (err) {}
+    } catch (err) {
+      console.log(err)
+    }
   }
   return userData
 }
