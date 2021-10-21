@@ -19,3 +19,5 @@ mongoose.connect(
 )
 
 require("./user/user.model.js")
+require("./artist/artist.model.js")
+require("./album/album.model.js")

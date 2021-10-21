@@ -3,11 +3,8 @@ const User = mongoose.model("user")
 var bcrypt = require("bcrypt")
 var jwtUtils = require("../../utils/jwt.utils.js")
 
-export const register = async (req, res) => {
-  let inBody = req.body
-  let { pseudo } = inBody
-  let { mail } = inBody
-  let { password } = inBody
+const register = async (req, res) => {
+  let { pseudo, mail, password } = req.body
 
   if (!pseudo || !mail || !password) {
     return res.status(400).json({ message: "missing pseudo, mail or password" })
@@ -42,14 +39,10 @@ export const register = async (req, res) => {
   })
 }
 
-export const login = async (req, res) => {
-  let inBody = req.body
-  let { mail } = inBody
-  let { password } = inBody
+const login = async (req, res) => {
+  let { mail, password } = req.body
 
   if (!password || !mail) {
-    console.log(password)
-    console.log(mail)
     return res.status(400).json({ error: "missing parameters" })
   }
   try {
@@ -63,7 +56,6 @@ export const login = async (req, res) => {
               token: token,
             })
           } catch (e) {
-            console.log(e)
             return res.status(200).json("Oups ! error T_T")
           }
         }
@@ -72,7 +64,8 @@ export const login = async (req, res) => {
       return res.status(500).json({ error: "invalid password or email" })
     }
   } catch (e) {
-    console.log(e)
     return res.status(500).json({ error: "unable to verify user" })
   }
 }
+
+module.exports = { register, login }

@@ -3,6 +3,8 @@ module.exports = (app) => {
 
   const authController = require("../controllers/auth/auth.controller.js")
   const userController = require("../controllers/user/user.controller.js")
+  const artistController = require("../controllers/artist/artist.controller.js")
+  const albumController = require("../controllers/album/album.controller.js")
   /**
    * TEST API
    */
@@ -25,10 +27,22 @@ module.exports = (app) => {
   /**
    * USER
    */
-  app.get("/user", userController.getAllUser)
-  app.get("/user/:id", userController.getUser)
+  app.get("/api/user", userController.getAllUser)
+  app.get("/api/user/:id", userController.getUser)
+  app.put("/api/user/:id", userController.updateUser)
+  app.delete("/api/user/:id", userController.deleteUser)
+  app.get("/api/user/artistFollow/:id", userController.getAllArtistForUser)
+  app.post("/api/user/artistFollow/:idUser/:idArtist", userController.addArtistForUser)
 
-  app.get("/api/test", userController.getAllUser)
+  /**
+   * ARTIST
+   */
+  app.post("/api/artist", artistController.createArtist)
+
+  /**
+   * ALBUM
+   */
+  app.post("/api/album", albumController.createAlbum)
 
   /**
    * 404 NOT FOUND

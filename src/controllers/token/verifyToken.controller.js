@@ -1,6 +1,5 @@
 let jwtUtils = require("../../utils/jwt.utils.js")
 let jwt = require("jsonwebtoken")
-const authController = require("../auth/auth.controller.js")
 
 const extractToken = (req) => {
   if (req.headers.authorization && req.headers.authorization.split(" ")[0] === "Bearer") {
@@ -24,10 +23,10 @@ const verifyToken = async (req, res, next) => {
         userData = jwtToken
       }
     } catch (err) {
-      return err
+      return res.status(400).json({ message: "jwt malformed" })
     }
   }
-  if (userData.pseudo) {
+  if (userData != -1) {
     return next()
   } else {
     return res.status(400).json({ message: "No token" })
