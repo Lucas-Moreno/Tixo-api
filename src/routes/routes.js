@@ -31,12 +31,13 @@ module.exports = (app) => {
   app.get("/api/user/:id", userController.getUser)
   app.put("/api/user/:id", userController.updateUser)
   app.delete("/api/user/:id", userController.deleteUser)
+  app.post("/api/user/:id/artist/:idArtist", userController.addArtistForUser)
   app.get("/api/user/artistFollow/:id", userController.getAllArtistForUser)
-  app.post("/api/user/artistFollow/:idUser/:idArtist", userController.addArtistForUser)
 
   /**
    * ARTIST
    */
+  app.get("/api/artist", artistController.searchArtist)
   app.post("/api/artist", artistController.createArtist)
 
   /**

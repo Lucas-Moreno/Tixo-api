@@ -17,4 +17,23 @@ const createArtist = async (req, res) => {
   }
 }
 
-module.exports = { createArtist }
+const searchArtist = async (req, res) => {
+  const { name } = req.query
+
+  const filter = {}
+
+  if (name) {
+    filter.name = { $regex: `${name}`, $options: "i" }
+  }
+
+  try {
+    const artist = await Artist.find(filter)
+    return res.status(200).json(artist)
+  } catch (err) {
+    console.log(err)
+    return res.status(500).json(err)
+  }
+}
+
+
+module.exports = { createArtist, searchArtist }

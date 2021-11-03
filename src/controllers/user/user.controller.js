@@ -13,7 +13,7 @@ const getAllUser = async (req, res) => {
 const getUser = async (req, res) => {
   let { id } = req.params
   try {
-    const user = await User.findOne({ _id: id })
+    const user = await User.findOne({ _id: id }).select("_id pseudo mail")
     return res.status(200).json(user)
   } catch (e) {
     return res.status(500).json(e)
@@ -24,8 +24,21 @@ const getUser = async (req, res) => {
 const updateUser = async (req, res) => {
   let { id } = req.params
   let { pseudo, mail, password } = req.body
+
+  const updates = {}
+
+  if (pseudo?.length) {
+    updates.pseudo = pseudo
+  }
+  if (mail?.length) {
+    updates.mail = mail
+  }
+  if (password?.length) {
+    updates.password = password
+  }
+
   try {
-    await User.findByIdAndUpdate({ _id: id }, { pseudo: pseudo, mail: mail, password: password })
+    await User.findByIdAndUpdate(id, updates)
     return res.status(200).json({ message: "user update" })
   } catch (e) {
     return res.status(500).json(e)
@@ -43,17 +56,20 @@ const deleteUser = async (req, res) => {
 }
 
 const addArtistForUser = async (req, res) => {
-  let { idUser, idArtist } = req.params
+  const { id, idArtist } = req.params
+
+  const updates = {}
+
+  if (idArtist?.length) {
+    updates.artistsFollow = idArtist
+  }
 
   try {
-    const artist = await Artist.findOne({ _id: idArtist })
-    if (artist) {
-      await User.findOneAndUpdate({ _id: idUser }, { $push: { artistsFollow: artist } })
-    } else {
-      return res.status(400).json({ message: "artist not defined" })
-    }
-    return res.status(200).json({ message: "artist add for user" })
+    const data = await User.findOneAndUpdate({ id: id }, updates, { runValidators: true })
+    console.log(data)
+    return res.status(200).json({ message: "add artist" })
   } catch (e) {
+    console.log(e)
     return res.status(500).json(e)
   }
 }
