@@ -35,5 +35,4 @@ const searchArtist = async (req, res) => {
   }
 }
 
-
 module.exports = { createArtist, searchArtist }

@@ -19,6 +19,7 @@ const verifyToken = async (req, res, next) => {
   if (token != null) {
     try {
       let jwtToken = jwt.verify(token, process.env.JWT_SIGN_SECRET)
+      // console.log(jwtToken)
       if (jwtToken != null) {
         userData = jwtToken
       }

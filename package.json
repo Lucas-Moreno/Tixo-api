@@ -10,7 +10,8 @@
     "eslint:fix": "eslint . --fix",
     "prettier": "prettier --check \"**/*.js\"",
     "prettier:fix": "prettier --write \"**/*.js\"",
-    "docker": "docker-compose up",
+    "dockup": "docker-compose up",
+    "dockstop": "docker-compose stop",
     "test": "jest"
   },
   "repository": {
